@@ -12,7 +12,6 @@ import krati.store.DataStore;
 import org.apache.log4j.Logger;
 
 import br.com.creativesource.tools.storage.hazelcast.krati.serializer.DefaultSerializer;
-import br.com.creativesource.tools.storage.hazelcast.krati.serializer.SimpleKratiSerializer;
 
 import com.google.common.base.Preconditions;
 
@@ -37,7 +36,7 @@ public class KratiDataStoreFactory {
 		}
 		if (dataStore == null || !dataStore.isOpen()) {
 			
-			dataStore = KratiDataStore.createDataStore(path, 64, segmentFactory,
+			dataStore = KratiDataStore.createDataStore(path, 100, segmentFactory,
 					keySerializer, valueSerializer);
 			
 			dataStoreRegistry.put(path, new DSInstancesControl(dataStore));
@@ -63,7 +62,7 @@ public class KratiDataStoreFactory {
 		}
 		if (dataStore == null || !dataStore.isOpen()) {
 			
-			dataStore = KratiDataStore.createDataStore(path, 64, segmentFactory,
+			dataStore = KratiDataStore.createDataStore(path, 100, segmentFactory,
 					keySerializer, valueSerializer);
 			
 			dataStoreRegistry.put(path, new DSInstancesControl(dataStore));

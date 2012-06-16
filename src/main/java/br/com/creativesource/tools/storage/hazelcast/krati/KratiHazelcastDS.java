@@ -24,11 +24,33 @@ public class KratiHazelcastDS implements MapStore<Object, Object> {
 	static final Logger LOG = Logger.getLogger(KratiHazelcastDS.class);
 
 	private DataStore datastore;
+	private String _path;
 
 	public KratiHazelcastDS() throws Exception {
 		String path = System.getProperty("user.home");
 		path = path + "/.krati/data";
 		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(path);
+	}
+
+	public KratiHazelcastDS(String _path) throws Exception {
+		this._path = _path;
+		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(_path);
+	}
+
+	public DataStore getDatastore() {
+		return datastore;
+	}
+
+	public void setDatastore(DataStore datastore) {
+		this.datastore = datastore;
+	}
+
+	public String get_path() {
+		return _path;
+	}
+
+	public void set_path(String _path) {
+		this._path = _path;
 	}
 
 	public Object load(Object key) {

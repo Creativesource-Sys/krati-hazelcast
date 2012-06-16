@@ -24,7 +24,7 @@ public class KratiDataStore {
 	static final Logger LOG = Logger.getLogger(KratiDataStore.class);
 	
 	private static final int DEFAULT_SEGMENT_SIZE = 64;
-	
+	private static final int DEFAULT_INITIAL_CAPACITY = 100;
 	
 	
 	/**
@@ -68,12 +68,12 @@ public class KratiDataStore {
 		if (initialCapacity > 0)
 			init = initialCapacity;
 		else
-			init = DEFAULT_SEGMENT_SIZE;
+			init = DEFAULT_INITIAL_CAPACITY;
 		
 		try {
-			StoreConfig storeConfig = new StoreConfig(homeDir, initialCapacity);
+			StoreConfig storeConfig = new StoreConfig(homeDir, init);
 			storeConfig.setSegmentFactory(segmentFactory);
-			storeConfig.setSegmentFileSizeMB(init);
+			storeConfig.setSegmentFileSizeMB(DEFAULT_SEGMENT_SIZE);
 			
 			DataStore dynamicDataStore = new DynamicDataStore(storeConfig);
 
