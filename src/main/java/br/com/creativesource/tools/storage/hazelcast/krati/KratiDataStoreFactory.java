@@ -14,7 +14,7 @@ import br.com.creativesource.tools.storage.hazelcast.krati.serializer.SimpleKrat
 
 public class KratiDataStoreFactory {
 	
-	protected static Map<String, KratiDataStoreRegistration> dataStoreRegistry = new HashMap<String, KratiDataStoreRegistration>();
+	protected static Map<String, DSInstancesControl> dataStoreRegistry = new HashMap<String, DSInstancesControl>();
 
 	public static DataStore newMappedSegmentDataStore(String path) throws Exception {
 		Preconditions.checkNotNull(path, "Argument path is empty");
@@ -24,7 +24,7 @@ public class KratiDataStoreFactory {
 		Serializer valueSerializer = new SimpleKratiSerializer();
 
 		DataStore dataStore = null;
-		KratiDataStoreRegistration registration = dataStoreRegistry.get(path);
+		DSInstancesControl registration = dataStoreRegistry.get(path);
 		
 		if (registration != null) {
 			dataStore = registration.getDataStore();
@@ -34,7 +34,7 @@ public class KratiDataStoreFactory {
 			dataStore = KratiDataStore.createDataStore(path, 64, segmentFactory,
 					keySerializer, valueSerializer);
 			
-			dataStoreRegistry.put(path, new KratiDataStoreRegistration(dataStore));
+			dataStoreRegistry.put(path, new DSInstancesControl(dataStore));
 		}
 		return dataStore;
 
@@ -49,7 +49,7 @@ public class KratiDataStoreFactory {
 		Serializer valueSerializer = new SimpleKratiSerializer();
 
 		DataStore dataStore = null;
-		KratiDataStoreRegistration registration = dataStoreRegistry.get(path);
+		DSInstancesControl registration = dataStoreRegistry.get(path);
 		
 		if (registration != null) {
 			dataStore = registration.getDataStore();
@@ -59,7 +59,7 @@ public class KratiDataStoreFactory {
 			dataStore = KratiDataStore.createDataStore(path, 64, segmentFactory,
 					keySerializer, valueSerializer);
 			
-			dataStoreRegistry.put(path, new KratiDataStoreRegistration(dataStore));
+			dataStoreRegistry.put(path, new DSInstancesControl(dataStore));
 		}
 		return dataStore;
 

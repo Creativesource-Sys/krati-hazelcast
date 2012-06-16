@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="4.478" errors="0" skipped="0" tests="1" name="br.com.creativesource.tools.storage.hazelcast.krati.KratiDataStoreTest">
+  <properties>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib"/>
+    <property name="java.vm.version" value="21.0-b17"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="BR"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Users/sleipnir/source/myprojects/projects/krati-hazelcast"/>
+    <property name="java.runtime.version" value="1.7.0-ea-b223"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="basedir" value="/Users/sleipnir/source/myprojects/projects/krati-hazelcast"/>
+    <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="surefire.real.class.path" value="/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/surefire/surefirebooter3783674324983672904.jar"/>
+    <property name="java.io.tmpdir" value="/var/folders/1K/1K7d79reGayF7x7IKh0U1++++TI/-Tmp-/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="sun.jnu.encoding" value="ISO8859-1"/>
+    <property name="java.library.path" value="/Users/sleipnir/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="surefire.test.class.path" value="/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/test-classes:/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/classes:/Users/sleipnir/.m2/repository/com/sna-projects/krati/krati/0.4.6/krati-0.4.6.jar:/Users/sleipnir/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/Users/sleipnir/.m2/repository/com/hazelcast/hazelcast/1.9.4.4/hazelcast-1.9.4.4.jar:/Users/sleipnir/.m2/repository/com/google/guava/guava/r05/guava-r05.jar:/Users/sleipnir/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="51.0"/>
+    <property name="java.net.preferIPv4Stack" value="true"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.6.8"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/sleipnir"/>
+    <property name="user.timezone" value="America/Sao_Paulo"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="java.specification.version" value="1.7"/>
+    <property name="file.encoding" value="ISO8859-1"/>
+    <property name="user.name" value="sleipnir"/>
+    <property name="java.class.path" value="/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/test-classes:/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/classes:/Users/sleipnir/.m2/repository/com/sna-projects/krati/krati/0.4.6/krati-0.4.6.jar:/Users/sleipnir/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/Users/sleipnir/.m2/repository/com/hazelcast/hazelcast/1.9.4.4/hazelcast-1.9.4.4.jar:/Users/sleipnir/.m2/repository/com/google/guava/guava/r05/guava-r05.jar:/Users/sleipnir/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:"/>
+    <property name="java.vm.specification.version" value="1.7"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre"/>
+    <property name="sun.java.command" value="/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/surefire/surefirebooter3783674324983672904.jar /Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/surefire/surefire2735740416647115529tmp /Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/surefire/surefire8627324634057789864tmp"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="pt"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.7.0-ea"/>
+    <property name="java.ext.dirs" value="/Users/sleipnir/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/modules/jdk.boot.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib/JObjC.jar:/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="localRepository" value="/Users/sleipnir/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase time="4.352" classname="br.com.creativesource.tools.storage.hazelcast.krati.KratiDataStoreTest" name="hazelcastKratiMapPersistence"/>
+</testsuite>
