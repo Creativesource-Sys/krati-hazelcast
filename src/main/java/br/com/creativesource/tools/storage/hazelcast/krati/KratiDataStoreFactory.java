@@ -3,6 +3,8 @@ package br.com.creativesource.tools.storage.hazelcast.krati;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.Preconditions;
+
 import krati.core.segment.ChannelSegmentFactory;
 import krati.core.segment.MappedSegmentFactory;
 import krati.core.segment.SegmentFactory;
@@ -15,6 +17,8 @@ public class KratiDataStoreFactory {
 	protected static Map<String, KratiDataStoreRegistration> dataStoreRegistry = new HashMap<String, KratiDataStoreRegistration>();
 
 	public static DataStore newMappedSegmentDataStore(String path) throws Exception {
+		Preconditions.checkNotNull(path, "Argument path is empty");
+		
 		SegmentFactory segmentFactory = new MappedSegmentFactory();
 		Serializer keySerializer = new SimpleKratiSerializer();
 		Serializer valueSerializer = new SimpleKratiSerializer();
@@ -38,6 +42,8 @@ public class KratiDataStoreFactory {
 	}
 	
 	public static DataStore newChannelSegmentDataStore(String path) throws Exception {
+		Preconditions.checkNotNull(path, "Argument path is empty");
+		
 		SegmentFactory segmentFactory = new ChannelSegmentFactory();
 		Serializer keySerializer = new SimpleKratiSerializer();
 		Serializer valueSerializer = new SimpleKratiSerializer();
