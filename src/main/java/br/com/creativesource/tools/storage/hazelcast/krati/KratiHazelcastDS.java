@@ -26,8 +26,9 @@ public class KratiHazelcastDS implements MapStore<Object, Object> {
 	private DataStore datastore;
 
 	public KratiHazelcastDS() throws Exception {
-		KratiDataStore data = new KratiDataStore(null, 0);
-		this.datastore = data.getDataStore();
+		String path = System.getProperty("user.dir");
+		path = path + "/data";
+		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(path);
 	}
 
 	public Object load(Object key) {

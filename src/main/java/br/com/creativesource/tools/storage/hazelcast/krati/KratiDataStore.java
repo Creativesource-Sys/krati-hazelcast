@@ -4,29 +4,23 @@
 package br.com.creativesource.tools.storage.hazelcast.krati;
 
 import java.io.File;
-import java.io.IOException;
 
-import br.com.creativesource.tools.storage.hazelcast.krati.serializer.DefaultSerializer;
-
-import krati.core.segment.MappedSegmentFactory;
-import krati.core.segment.MemorySegmentFactory;
+import krati.core.StoreConfig;
+import krati.core.segment.SegmentFactory;
+import krati.io.Serializer;
 import krati.store.DataStore;
 import krati.store.DynamicDataStore;
 import krati.store.SerializableObjectStore;
-
-import krati.core.StoreConfig;
-import krati.core.StoreFactory;
 
 /**
  * @author sleipnir
  * 
  */
 public class KratiDataStore {
-	private static final int DEFAULT_SEGMENT_SIZE = 0;
-	private final int _initialCapacity;
-	private final DataStore<byte[], byte[]> _store;
-	private File _dir;
-
+	private static final int DEFAULT_SEGMENT_SIZE = 64;
+	
+	
+	
 	/**
 	 * Constructs KratiDataStore.
 	 * 
@@ -37,18 +31,12 @@ public class KratiDataStore {
 	 * @throws Exception
 	 *             if a DataStore instance can not be created.
 	 */
-	public KratiDataStore(File homeDir, int initialCapacity) throws Exception {
-		_initialCapacity = initialCapacity;
-		_dir = homeDir;
-		_store = createDataStore();
-	}
+	private KratiDataStore() {}
 
 	/**
 	 * @return the underlying data store.
 	 */
-	public final DataStore getDataStore() {
-		return _store;
-	}
+
 
 	/**
 	 * Creates a DataStore instance.
@@ -58,35 +46,39 @@ public class KratiDataStore {
 	 * specific SegmentFactory such as ChannelSegmentFactory,
 	 * MappedSegmentFactory and WriteBufferSegment.
 	 */
-	/*protected DataStore createDataStore(File homeDir, int initialCapacity)
-			throws Exception {
-		StoreConfig config = new StoreConfig(homeDir, initialCapacity);
-		config.setSegmentFactory(new MappedSegmentFactory());
-		config.setSegmentFileSizeMB(64);
-
-		return StoreFactory.createStaticDataStore(config);
-	}
-
-	*/protected DataStore createDataStore() throws Exception {
+	
+	public static DataStore createDataStore(String path, int initialCapacity,
+			SegmentFactory segmentFactory, Serializer keySerializer,
+			Serializer valueSerializer) throws Exception {
+		
 		DataStore result = null;
-
+		
+		File homeDir = new File(path);
+		homeDir.mkdirs();
+		
+		int init;
+		
+		if (initialCapacity > 0)
+			init = initialCapacity;
+		else
+			init = DEFAULT_SEGMENT_SIZE;
+		
 		try {
-
-			StoreConfig config = new StoreConfig(this._dir,
-					this._initialCapacity);
-			config.setSegmentFactory(new MappedSegmentFactory());
-			config.setSegmentFileSizeMB(DEFAULT_SEGMENT_SIZE);
-
-			DataStore dynamicDataStore = new DynamicDataStore(config);
+			StoreConfig storeConfig = new StoreConfig(homeDir, initialCapacity);
+			storeConfig.setSegmentFactory(segmentFactory);
+			storeConfig.setSegmentFileSizeMB(init);
+			
+			DataStore dynamicDataStore = new DynamicDataStore(storeConfig);
 
 			result = new SerializableObjectStore(dynamicDataStore,
-					new DefaultSerializer(), new DefaultSerializer());
+					keySerializer, valueSerializer);
 		} catch (Exception e) {
 			throw new RuntimeKratiDSException(
 					"Failed to create Krati DataStore.", e);
 		}
-
 		return result;
 	}
+
+
 
 }
