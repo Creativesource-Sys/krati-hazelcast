@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="3.947" errors="0" skipped="0" tests="2" name="br.com.creativesource.tools.storage.hazelcast.krati.KratiDataStoreTest">
+<testsuite failures="0" time="0.495" errors="0" skipped="0" tests="2" name="br.com.creativesource.tools.storage.hazelcast.krati.ConfigChannelSegmentFactoryTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/JDK_1.7.0-Developer_Preview.jdk/Contents/Home/jre/lib"/>
@@ -31,7 +31,6 @@
     <property name="surefire.test.class.path" value="/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/test-classes:/Users/sleipnir/source/myprojects/projects/krati-hazelcast/target/classes:/Users/sleipnir/.m2/repository/com/sna-projects/krati/krati/0.4.6/krati-0.4.6.jar:/Users/sleipnir/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/Users/sleipnir/.m2/repository/com/hazelcast/hazelcast/1.9.4.4/hazelcast-1.9.4.4.jar:/Users/sleipnir/.m2/repository/com/google/guava/guava/r05/guava-r05.jar:/Users/sleipnir/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="51.0"/>
-    <property name="java.net.preferIPv4Stack" value="true"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="10.6.8"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
@@ -63,6 +62,6 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="3.938" classname="br.com.creativesource.tools.storage.hazelcast.krati.KratiDataStoreTest" name="hazelcastKratiMapPersistence"/>
-  <testcase time="0.003" classname="br.com.creativesource.tools.storage.hazelcast.krati.KratiDataStoreTest" name="kratiSerialiazer"/>
+  <testcase time="0.363" classname="br.com.creativesource.tools.storage.hazelcast.krati.ConfigChannelSegmentFactoryTest" name="simpleConfigTest"/>
+  <testcase time="0.008" classname="br.com.creativesource.tools.storage.hazelcast.krati.ConfigChannelSegmentFactoryTest" name="valueIsObject"/>
 </testsuite>

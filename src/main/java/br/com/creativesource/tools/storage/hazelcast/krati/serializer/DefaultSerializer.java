@@ -1,10 +1,9 @@
-/**
- * 
- */
+
 package br.com.creativesource.tools.storage.hazelcast.krati.serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,6 +25,8 @@ public class DefaultSerializer<T extends Serializable> implements Serializer<T> 
 
 	private static final Logger LOG = Logger
 			.getLogger(DefaultSerializer.class);
+	
+	Closeable closeable;
 
 	/**
 	 * Serialize an object into a byte array.
@@ -35,6 +36,7 @@ public class DefaultSerializer<T extends Serializable> implements Serializer<T> 
 	 * @return a byte array which is the raw representation of an object.
 	 */
 	public byte[] serialize(T object) throws SerializationException {
+		
 		byte[] result = null;
 
 		if (object == null) {

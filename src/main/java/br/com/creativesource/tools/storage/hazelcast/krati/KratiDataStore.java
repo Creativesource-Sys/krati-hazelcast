@@ -5,6 +5,10 @@ package br.com.creativesource.tools.storage.hazelcast.krati;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+
+import br.com.creativesource.tools.storage.hazelcast.krati.serializer.SimpleKratiSerializer;
+
 import krati.core.StoreConfig;
 import krati.core.segment.SegmentFactory;
 import krati.io.Serializer;
@@ -17,6 +21,8 @@ import krati.store.SerializableObjectStore;
  * 
  */
 public class KratiDataStore {
+	static final Logger LOG = Logger.getLogger(KratiDataStore.class);
+	
 	private static final int DEFAULT_SEGMENT_SIZE = 64;
 	
 	
@@ -55,6 +61,7 @@ public class KratiDataStore {
 		
 		File homeDir = new File(path);
 		homeDir.mkdirs();
+		LOG.info("Creating a permanent storage area: " + path);
 		
 		int init;
 		

@@ -21,13 +21,13 @@ import krati.store.DataStore;
  * 
  */
 public class KratiHazelcastDS implements MapStore<Object, Object> {
-	private Logger LOG;
+	static final Logger LOG = Logger.getLogger(KratiHazelcastDS.class);
 
 	private DataStore datastore;
 
 	public KratiHazelcastDS() throws Exception {
-		String path = System.getProperty("user.dir");
-		path = path + "/data";
+		String path = System.getProperty("user.home");
+		path = path + "/.krati/data";
 		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(path);
 	}
 

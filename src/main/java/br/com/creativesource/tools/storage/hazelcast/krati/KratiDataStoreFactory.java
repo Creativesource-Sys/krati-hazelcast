@@ -3,16 +3,21 @@ package br.com.creativesource.tools.storage.hazelcast.krati;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.base.Preconditions;
-
 import krati.core.segment.ChannelSegmentFactory;
 import krati.core.segment.MappedSegmentFactory;
 import krati.core.segment.SegmentFactory;
 import krati.io.Serializer;
 import krati.store.DataStore;
+
+import org.apache.log4j.Logger;
+
+import br.com.creativesource.tools.storage.hazelcast.krati.serializer.DefaultSerializer;
 import br.com.creativesource.tools.storage.hazelcast.krati.serializer.SimpleKratiSerializer;
 
+import com.google.common.base.Preconditions;
+
 public class KratiDataStoreFactory {
+	static final Logger LOG = Logger.getLogger(KratiDataStoreFactory.class);
 	
 	protected static Map<String, DSInstancesControl> dataStoreRegistry = new HashMap<String, DSInstancesControl>();
 
@@ -20,8 +25,9 @@ public class KratiDataStoreFactory {
 		Preconditions.checkNotNull(path, "Argument path is empty");
 		
 		SegmentFactory segmentFactory = new MappedSegmentFactory();
-		Serializer keySerializer = new SimpleKratiSerializer();
-		Serializer valueSerializer = new SimpleKratiSerializer();
+		
+		Serializer keySerializer = new DefaultSerializer();
+		Serializer valueSerializer = new DefaultSerializer();
 
 		DataStore dataStore = null;
 		DSInstancesControl registration = dataStoreRegistry.get(path);
@@ -45,8 +51,9 @@ public class KratiDataStoreFactory {
 		Preconditions.checkNotNull(path, "Argument path is empty");
 		
 		SegmentFactory segmentFactory = new ChannelSegmentFactory();
-		Serializer keySerializer = new SimpleKratiSerializer();
-		Serializer valueSerializer = new SimpleKratiSerializer();
+		
+		Serializer keySerializer = new DefaultSerializer();
+		Serializer valueSerializer = new DefaultSerializer();
 
 		DataStore dataStore = null;
 		DSInstancesControl registration = dataStoreRegistry.get(path);
