@@ -1,7 +1,7 @@
 package br.com.creativesource.tools.storage.hazelcast.krati;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import krati.store.DataStore;
 
@@ -14,13 +14,13 @@ public class DSInstancesControl {
 
 	private final DataStore dataStore;
 
-	private final AtomicInteger registrationCount = new AtomicInteger();
+	private final AtomicLong registrationCount = new AtomicLong();
 
 	public DSInstancesControl(DataStore dataStore) {
 		this.dataStore = dataStore;
 	}
 
-	public int register() {
+	public Long register() {
 
 		return registrationCount.incrementAndGet();
 	}

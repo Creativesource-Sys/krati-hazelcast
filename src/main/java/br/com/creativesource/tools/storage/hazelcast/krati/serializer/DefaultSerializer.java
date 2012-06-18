@@ -15,7 +15,7 @@ import krati.io.Serializer;
 
 import org.apache.log4j.Logger;
 
-import br.com.creativesource.tools.storage.hazelcast.krati.util.IOHelper;
+import br.com.creativesource.tools.storage.hazelcast.krati.util.IOUtil;
 
 /**
  * @author sleipnir
@@ -52,8 +52,8 @@ public class DefaultSerializer<T extends Serializable> implements Serializer<T> 
 		} catch (IOException e) {
 			LOG.warn("Error while serializing object. Null will be used.", e);
 		} finally {
-			IOHelper.close(oos);
-			IOHelper.close(baos);
+			IOUtil.close(oos);
+			IOUtil.close(baos);
 		}
 		return result;
 	}
@@ -99,8 +99,8 @@ public class DefaultSerializer<T extends Serializable> implements Serializer<T> 
 					"Could not find class while deserializing object. Null will be used.",
 					e);
 		} finally {
-			IOHelper.close(ois);
-			IOHelper.close(bais);
+			IOUtil.close(ois);
+			IOUtil.close(bais);
 		}
 		return result;
 	}

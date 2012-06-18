@@ -10,10 +10,17 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 
+import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.MapStore;
+import com.hazelcast.logging.ILogger;
+import com.hazelcast.logging.LogEvent;
+import com.hazelcast.logging.LogListener;
+import com.hazelcast.logging.LoggingService;
+
 import krati.store.DataStore;
 
 /**
@@ -22,6 +29,8 @@ import krati.store.DataStore;
  */
 public class KratiHazelcastDS implements MapStore<Object, Object> {
 	static final Logger LOG = Logger.getLogger(KratiHazelcastDS.class);
+	private static final LoggingService logging = Hazelcast.getLoggingService();
+	private static final ILogger logger = logging.getLogger(KratiHazelcastDS.class.getName());
 
 	private DataStore datastore;
 	private String _path;
@@ -30,11 +39,14 @@ public class KratiHazelcastDS implements MapStore<Object, Object> {
 		String path = System.getProperty("user.home");
 		path = path + "/.krati/data";
 		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(path);
+		logger.log(Level.INFO, "Isso eh um Teste de logger !!!!");
+
 	}
 
 	public KratiHazelcastDS(String _path) throws Exception {
 		this._path = _path;
 		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(_path);
+		logger.log(Level.INFO, "Isso eh um Teste de logger !!!!");
 	}
 
 	public DataStore getDatastore() {
