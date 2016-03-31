@@ -1,4 +1,4 @@
-package br.com.creativesource.tools.storage.hazelcast.krati.tests;
+package br.com.creativesource.tools.storage.krati.hazelcast.tests;
 
 import java.io.Serializable;
 
