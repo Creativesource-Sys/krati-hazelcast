@@ -1,14 +1,14 @@
 /**
- * 
+ *
  */
-package br.com.creativesource.tools.storage.hazelcast.krati;
+package br.com.creativesource.tools.storage.krati.hazelcast.store;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import br.com.creativesource.tools.storage.hazelcast.krati.serializer.SimpleKratiSerializer;
-
+import br.com.creativesource.tools.storage.krati.hazelcast.exception.RuntimeKratiDSException;
 import krati.core.StoreConfig;
 import krati.core.segment.SegmentFactory;
 import krati.io.Serializer;
@@ -18,18 +18,17 @@ import krati.store.SerializableObjectStore;
 
 /**
  * @author sleipnir
- * 
+ *
  */
 public class KratiDataStore {
-	static final Logger LOG = Logger.getLogger(KratiDataStore.class);
-	
+	static final Logger LOG = LoggerFactory.getLogger(KratiDataStore.class);
+
 	private static final int DEFAULT_SEGMENT_SIZE = 64;
 	private static final int DEFAULT_INITIAL_CAPACITY = 100;
-	
-	
+
 	/**
 	 * Constructs KratiDataStore.
-	 * 
+	 *
 	 * @param homeDir
 	 *            the home directory of DataStore.
 	 * @param initialCapacity
@@ -37,12 +36,12 @@ public class KratiDataStore {
 	 * @throws Exception
 	 *             if a DataStore instance can not be created.
 	 */
-	private KratiDataStore() {}
+	private KratiDataStore() {
+	}
 
 	/**
 	 * @return the underlying data store.
 	 */
-
 
 	/**
 	 * Creates a DataStore instance.
@@ -52,40 +51,36 @@ public class KratiDataStore {
 	 * specific SegmentFactory such as ChannelSegmentFactory,
 	 * MappedSegmentFactory and WriteBufferSegment.
 	 */
-	
-	public static DataStore createDataStore(String path, int initialCapacity,
-			SegmentFactory segmentFactory, Serializer keySerializer,
-			Serializer valueSerializer) throws Exception {
-		
-		DataStore result = null;
-		
-		File homeDir = new File(path);
-		homeDir.mkdirs();
-		LOG.info("Creating a permanent storage area: " + path);
-		
+
+	public static DataStore createDataStore(String path, int initialCapacity, SegmentFactory segmentFactory, Serializer keySerializer, Serializer valueSerializer) throws Exception {
 		int init;
-		
+		DataStore store = null;
+
+		File homeDir = new File(path);
+		if(!homeDir.exists()){
+			LOG.info("Creating a permanent storage area: {}", path);
+			homeDir.mkdirs();
+		}else{
+			LOG.info("Permanent storage is: {}", path);
+		}
+
 		if (initialCapacity > 0)
 			init = initialCapacity;
 		else
 			init = DEFAULT_INITIAL_CAPACITY;
-		
+
 		try {
 			StoreConfig storeConfig = new StoreConfig(homeDir, init);
 			storeConfig.setSegmentFactory(segmentFactory);
 			storeConfig.setSegmentFileSizeMB(DEFAULT_SEGMENT_SIZE);
-			
+
 			DataStore dynamicDataStore = new DynamicDataStore(storeConfig);
 
-			result = new SerializableObjectStore(dynamicDataStore,
-					keySerializer, valueSerializer);
+			store = new SerializableObjectStore(dynamicDataStore, keySerializer, valueSerializer);
 		} catch (Exception e) {
-			throw new RuntimeKratiDSException(
-					"Failed to create Krati DataStore.", e);
+			throw new RuntimeKratiDSException("Failed to create Krati DataStore.", e);
 		}
-		return result;
+		return store;
 	}
-
-
 
 }

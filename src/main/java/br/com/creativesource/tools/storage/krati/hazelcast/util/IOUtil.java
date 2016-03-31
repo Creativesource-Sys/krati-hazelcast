@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package br.com.creativesource.tools.storage.hazelcast.krati.util;
+package br.com.creativesource.tools.storage.krati.hazelcast.util;
 
 
 import java.io.Closeable;
@@ -11,23 +11,25 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
- * IO helper class.
+ * IO helper class. Take from camel-krati/camel-core component
  *
- * @version 
+ * @version
  */
-public final class IOHelper {
-    
-    private static final transient Logger LOG = Logger.getLogger(IOHelper.class);
+public final class IOUtil {
+
+    private static final transient Logger LOG = LoggerFactory.getLogger(IOUtil.class);
     private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
     private static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
 
-    private IOHelper() {
+    private IOUtil() {
         //Utility Class
     }
-    
+
     /**
      * Use this function instead of new String(byte[]) to avoid surprises from non-standard default encodings.
      */
@@ -40,7 +42,7 @@ public final class IOHelper {
     }
 
     /**
-     * Use this function instead of new String(byte[], int, int) 
+     * Use this function instead of new String(byte[], int, int)
      * to avoid surprises from non-standard default encodings.
      */
     public static String newStringFromBytes(byte[] bytes, int start, int length) {
@@ -78,7 +80,7 @@ public final class IOHelper {
     public static int copy(InputStream input, OutputStream output) throws IOException {
         return copy(input, output, DEFAULT_BUFFER_SIZE);
     }
-    
+
     public static int copy(final InputStream input, final OutputStream output, int bufferSize) throws IOException {
         int avail = input.available();
         if (avail > 262144) {
@@ -99,12 +101,12 @@ public final class IOHelper {
         output.flush();
         return total;
     }
-    
+
     public static void copyAndCloseInput(InputStream input, OutputStream output) throws IOException {
         copy(input, output);
         close(input, null, LOG);
     }
-    
+
     public static void copyAndCloseInput(InputStream input, OutputStream output, int bufferSize) throws IOException {
         copy(input, output, bufferSize);
         close(input, null, LOG);

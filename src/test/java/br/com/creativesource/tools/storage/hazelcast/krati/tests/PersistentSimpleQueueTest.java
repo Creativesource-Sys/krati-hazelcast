@@ -6,6 +6,7 @@ import com.hazelcast.config.MapStoreConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,8 +23,6 @@ public class PersistentSimpleQueueTest {
 		final Stats stats = new Stats();
 
 		Config cfg = new Config();
-		cfg.setPort(5900);
-		cfg.setPortAutoIncrement(false);
 
 		MapConfig mapCfg = new MapConfig();
 		mapCfg.setName("testKratiPersistence");
@@ -33,32 +32,13 @@ public class PersistentSimpleQueueTest {
 
 		MapStoreConfig mapStoreCfg = new MapStoreConfig();
 		mapStoreCfg
-				.setClassName(
-						"br.com.creativesource.tools.storage.hazelcast.krati.tests.KratiHazelcastDS")
+			.setClassName("br.com.creativesource.tools.storage.krati.hazelcast.KratiHazelcastMapStore")
 				.setEnabled(true);
 		mapCfg.setMapStoreConfig(mapStoreCfg);
 
 		cfg.addMapConfig(mapCfg);
-		hazel = Hazelcast.init(cfg);
+		hazel = Hazelcast.newHazelcastInstance(cfg);
 
-		ExecutorService es = Executors.newFixedThreadPool(threadCount);
-		for (int i = 0; i < threadCount; i++) {
-			es.submit(new Runnable() {
-				public void run() {
-					Queue<byte[]> queue = hazel.getQueue("default");
-					while (true) {
-						for (int j = 0; j < 1000; j++) {
-							queue.offer(new byte[VALUE_SIZE]);
-							stats.offers.incrementAndGet();
-						}
-						for (int j = 0; j < 1000; j++) {
-							queue.poll();
-							stats.polls.incrementAndGet();
-						}
-					}
-				}
-			});
-		}
 		Executors.newSingleThreadExecutor().submit(new Runnable() {
 			public void run() {
 				while (true) {
@@ -76,6 +56,25 @@ public class PersistentSimpleQueueTest {
 				}
 			}
 		});
+
+		ExecutorService es = Executors.newFixedThreadPool(threadCount);
+		for (int i = 0; i < threadCount; i++) {
+			es.submit(new Runnable() {
+				public void run() {
+					Map<Integer, byte[]> queue = hazel.getMap("testKratiPersistence");
+					while (true) {
+						for (int j = 0; j < 1000; j++) {
+							queue.put(j, new byte[VALUE_SIZE]);
+							stats.offers.incrementAndGet();
+						}
+						for (int j = 0; j < 1000; j++) {
+							queue.get(j);
+							stats.polls.incrementAndGet();
+						}
+					}
+				}
+			});
+		}
 	}
 
 	public static class Stats {

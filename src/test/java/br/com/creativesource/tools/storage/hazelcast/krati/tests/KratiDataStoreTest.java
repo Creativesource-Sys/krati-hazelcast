@@ -5,11 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.Map;
 import java.util.Queue;
 
-import krati.store.DataStore;
-
+import org.junit.Before;
 import org.junit.Test;
-
-import br.com.creativesource.tools.storage.hazelcast.krati.KratiDataStoreFactory;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.MapConfig;
@@ -17,19 +14,15 @@ import com.hazelcast.config.MapStoreConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
+import br.com.creativesource.tools.storage.krati.hazelcast.factory.KratiDataStoreFactory;
+import krati.store.DataStore;
+
 public class KratiDataStoreTest {
 	private HazelcastInstance hazel;
 
-	public KratiDataStoreTest() {
-	}
-
-	@Test
-	public void hazelcastKratiMapPersistence() {
-		hazel = null;
+	@Before
+	public void setup(){
 		Config cfg = new Config();
-		cfg.setPort(5900);
-		cfg.setPortAutoIncrement(false);
-		// cfg.setProperty("hazelcast.logging.type", "log4j");
 
 		MapConfig mapCfg = new MapConfig();
 		mapCfg.setName("testKratiPersistence");
@@ -40,14 +33,18 @@ public class KratiDataStoreTest {
 		MapStoreConfig mapStoreCfg = new MapStoreConfig();
 		mapStoreCfg
 				.setClassName(
-						"br.com.creativesource.tools.storage.hazelcast.krati.tests.KratiHazelcastDS")
+						"br.com.creativesource.tools.storage.krati.hazelcast.KratiHazelcastMapStore")
 				.setEnabled(true);
 		mapCfg.setMapStoreConfig(mapStoreCfg);
 
 		cfg.addMapConfig(mapCfg);
-		hazel = Hazelcast.init(cfg);
+		hazel = Hazelcast.newHazelcastInstance(cfg);
+	}
 
-		Map<Integer, String> mapCustomers = Hazelcast.getMap("customers");
+	@Test
+	public void hazelcastKratiMapPersistence() {
+
+		Map<Integer, String> mapCustomers = hazel.getMap("customers");
 		mapCustomers.put(1, "Joe");
 		mapCustomers.put(2, "Ali");
 		mapCustomers.put(3, "Avi");

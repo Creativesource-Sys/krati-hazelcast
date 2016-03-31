@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package br.com.creativesource.tools.storage.hazelcast.krati;
+package br.com.creativesource.tools.storage.krati.hazelcast;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,43 +10,37 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Level;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.MapStore;
-import com.hazelcast.logging.ILogger;
-import com.hazelcast.logging.LogEvent;
-import com.hazelcast.logging.LogListener;
-import com.hazelcast.logging.LoggingService;
 
+import br.com.creativesource.tools.storage.krati.hazelcast.factory.KratiDataStoreFactory;
 import krati.store.DataStore;
 
 /**
  * @author sleipnir
- * 
+ *
  */
-public class KratiHazelcastDS implements MapStore<Object, Object> {
-	static final Logger LOG = Logger.getLogger(KratiHazelcastDS.class);
-	private static final LoggingService logging = Hazelcast.getLoggingService();
-	private static final ILogger logger = logging.getLogger(KratiHazelcastDS.class.getName());
+public class KratiHazelcastMapStore implements MapStore<Object, Object> {
+	static final Logger logger = LoggerFactory.getLogger(KratiHazelcastMapStore.class);
 
 	private DataStore datastore;
-	private String _path;
+	private String path;
 
-	public KratiHazelcastDS() throws Exception {
+	public KratiHazelcastMapStore() throws Exception {
 		String path = System.getProperty("user.home");
 		path = path + "/.krati/data";
+		logger.info("Initializing Krati Persistence Store");
 		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(path);
-		logger.log(Level.INFO, "Isso eh um Teste de logger !!!!");
 
 	}
 
-	public KratiHazelcastDS(String _path) throws Exception {
-		this._path = _path;
-		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(_path);
-		logger.log(Level.INFO, "Isso eh um Teste de logger !!!!");
+	public KratiHazelcastMapStore(String path) throws Exception {
+		this.path = path;
+		logger.info("Initializing Krati Persistence Store");
+		this.datastore = KratiDataStoreFactory.newMappedSegmentDataStore(path);
 	}
 
 	public DataStore getDatastore() {
@@ -58,11 +52,11 @@ public class KratiHazelcastDS implements MapStore<Object, Object> {
 	}
 
 	public String get_path() {
-		return _path;
+		return path;
 	}
 
 	public void set_path(String _path) {
-		this._path = _path;
+		this.path = _path;
 	}
 
 	public Object load(Object key) {
@@ -97,32 +91,28 @@ public class KratiHazelcastDS implements MapStore<Object, Object> {
 	public void store(Object key, Object value) {
 		try {
 			datastore.put(key, value);
-			if (LOG.isDebugEnabled()) {
-				LOG.debug("Persisting value for the specified key");
-				LOG.debug("Key: " + key + " For value: " + value);
+			if (logger.isDebugEnabled()) {
+				logger.debug("Persisting value for the specified key");
+				logger.debug("Key: " + key + " For value: " + value);
 			}
 		} catch (Exception e) {
-			LOG.error(
-					"An error occurred while persisting the map for the specified key. Key: "
-							+ key, e);
+			logger.error("An error occurred while persisting the map for the specified key. Key: {}", key, e);
 		}
 
 	}
 
 	public void storeAll(Map<Object, Object> map) {
-		LOG.info("Store all objects for a total of " + map.size() + " keys.");
+		logger.info("Store all objects for a total of " + map.size() + " keys.");
 
 		for (Entry<Object, Object> entry : map.entrySet()) {
 			try {
 				datastore.put(entry.getKey(), entry.getValue());
-				if (LOG.isDebugEnabled()) {
-					LOG.debug(entry.getKey() + " - " + entry.getValue());
+				if (logger.isDebugEnabled()) {
+					logger.debug(entry.getKey() + " - " + entry.getValue());
 				}
 
 			} catch (Exception e) {
-				LOG.error(
-						"An error occurred while persisting the map for the specified key. ",
-						e);
+				logger.error("An error occurred while persisting the map for the specified key. ",	e);
 			}
 
 		}
@@ -132,19 +122,17 @@ public class KratiHazelcastDS implements MapStore<Object, Object> {
 	public void delete(Object key) {
 		try {
 			datastore.delete(key);
-			if (LOG.isDebugEnabled()) {
-				LOG.info("Erasing data for specified key. Key " + key);
+			if (logger.isDebugEnabled()) {
+				logger.info("Erasing data for specified key. Key {}", key);
 			}
 		} catch (Exception e) {
-			LOG.error(
-					"An error occurred while erasing map for the specified key. Key: "
-							+ key, e);
+			logger.error("An error occurred while erasing map for the specified key. Key: {}", key, e);
 		}
 
 	}
 
 	public void deleteAll(Collection<Object> keys) {
-		LOG.info("Erasing all objects for a total of " + keys.size() + " keys.");
+		logger.info("Erasing all objects for a total of " + keys.size() + " keys.");
 
 		Iterator<Object> keyAll = keys.iterator();
 
@@ -153,9 +141,7 @@ public class KratiHazelcastDS implements MapStore<Object, Object> {
 			try {
 				datastore.delete(key);
 			} catch (Exception e) {
-				LOG.error(
-						"An error occurred during attempts to delete all entries in map ",
-						e);
+				logger.error("An error occurred during attempts to delete all entries in map ",	e);
 			}
 		}
 

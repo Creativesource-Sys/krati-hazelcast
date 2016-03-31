@@ -1,16 +1,16 @@
-package br.com.creativesource.tools.storage.hazelcast.krati;
+package br.com.creativesource.tools.storage.krati.hazelcast.store;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicLong;
 
-import krati.store.DataStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
+import krati.store.DataStore;
 
 public class DSInstancesControl {
 
-	private static final Logger LOG = Logger
-			.getLogger(DSInstancesControl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DSInstancesControl.class);
 
 	private final DataStore dataStore;
 

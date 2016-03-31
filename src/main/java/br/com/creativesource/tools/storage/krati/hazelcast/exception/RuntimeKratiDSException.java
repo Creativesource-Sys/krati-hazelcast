@@ -1,12 +1,15 @@
-package br.com.creativesource.tools.storage.hazelcast.krati;
+package br.com.creativesource.tools.storage.krati.hazelcast.exception;
 
 public class RuntimeKratiDSException extends Exception {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 *
 	 */
-	public RuntimeKratiDSException() {
-	}
+	public RuntimeKratiDSException() {}
 
 	/**
 	 * @param message
@@ -14,8 +17,7 @@ public class RuntimeKratiDSException extends Exception {
 	 * @param enableSuppression
 	 * @param writableStackTrace
 	 */
-	public RuntimeKratiDSException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace) {
+	public RuntimeKratiDSException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
@@ -41,9 +43,6 @@ public class RuntimeKratiDSException extends Exception {
 		super(cause);
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 
 }

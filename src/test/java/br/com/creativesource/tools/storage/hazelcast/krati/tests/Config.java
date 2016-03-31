@@ -44,10 +44,10 @@ public class Config implements Serializable{
 		this.key = key;
 		return this;
 	}
-	public String getPropertie() {
+	public String getProperty() {
 		return propertie;
 	}
-	public Config setPropertie(String propertie) {
+	public Config setProperty(String propertie) {
 		this.propertie = propertie;
 		return this;
 	}

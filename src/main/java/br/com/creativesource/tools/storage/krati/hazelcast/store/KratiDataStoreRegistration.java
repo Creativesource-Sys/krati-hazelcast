@@ -1,17 +1,16 @@
-package br.com.creativesource.tools.storage.hazelcast.krati;
+package br.com.creativesource.tools.storage.krati.hazelcast.store;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import krati.store.DataStore;
-
-import org.apache.log4j.Logger;
-
 
 public class KratiDataStoreRegistration {
 
-	private static final Logger LOG = Logger
-			.getLogger(KratiDataStoreRegistration.class);
-	
+	private static final Logger LOG = LoggerFactory.getLogger(KratiDataStoreRegistration.class);
+
     private final DataStore dataStore;
     private int registrationCount;
 
