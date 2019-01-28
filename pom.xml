@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- default versions -->
-		<guava-version>r05</guava-version>
+		<guava-version>24.1.1-jre</guava-version>
 		<krati-version>0.4.6</krati-version>
 		<hazelcast-version>3.2</hazelcast-version>
 	</properties>
@@ -54,7 +54,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.1.5</version>
+			<version>1.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
