@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- default versions -->
-		<guava-version>r05</guava-version>
+		<guava-version>32.0.0-android</guava-version>
 		<krati-version>0.4.6</krati-version>
 		<hazelcast-version>3.2</hazelcast-version>
 	</properties>
